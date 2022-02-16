@@ -1,14 +1,35 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+    const [current, setCurrent] = useState('Home');
+
+    const HomeScreen = (
+        <View style={styles.container}>
+            <Text>Вход</Text>
+            <Text>Произвольный текст</Text>
+            <Button
+                title="Start"
+                onPress={() => setCurrent(DashboardScreen)}
+            ></Button>
+        </View>
+    );
+
+    const DashboardScreen = (
+        <View style={styles.container}>
+            <Text>Список</Text>
+            <Text>Список</Text>
+            <Button
+                title="Back to login screen"
+                onPress={() => setCurrent(HomeScreen)}
+            ></Button>
+        </View>
+    );
+
+    return current === 'Home' ? HomeScreen : current;
+
 }
 
 const styles = StyleSheet.create({
