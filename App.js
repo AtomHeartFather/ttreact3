@@ -1,42 +1,65 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import * as React from 'react';
+import { View, Text, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function App() {
-
-    const [current, setCurrent] = useState('Home');
-
-    const HomeScreen = (
-        <View style={styles.container}>
-            <Text>Вход</Text>
-            <Text>Произвольный текст</Text>
-            <Button
-                title="Start"
-                onPress={() => setCurrent(DashboardScreen)}
-            ></Button>
-        </View>
-    );
-
-    const DashboardScreen = (
-        <View style={styles.container}>
-            <Text>Список</Text>
-            <Text>Список</Text>
-            <Button
-                title="Back to login screen"
-                onPress={() => setCurrent(HomeScreen)}
-            ></Button>
-        </View>
-    );
-
-    return current === 'Home' ? HomeScreen : current;
-
+const LoginScreen = ({ navigation }) => {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Login Screen</Text>
+      <Button
+        title="Login"
+        onPress={() => navigation.navigate('List')}
+      />
+    </View>
+  );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const ListScreen = ({ navigation }) => {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>List Screen</Text>
+      <Button
+        title="Element"
+        onPress={() => navigation.navigate('Element')}
+      />
+    </View>
+  );
+}
+
+
+const ElementScreen = ({ navigation }) => {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Element Screen</Text>
+      <Button
+        title="Назад"
+        onPress={() => navigation.navigate('List')}
+      />
+      <Button
+        title="Выйти из аккаунта"
+        onPress={() => navigation.navigate('Login')}
+      />
+    </View>
+  );
+}
+
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={LoginScreen}
+            options={{headerTitle: 'Вход в личный кабинет'}}/>
+        <Stack.Screen name="List" component={ListScreen}
+            options={{headerTitle: 'Список', headerLeft: null}}/>
+        <Stack.Screen name="Element" component={ElementScreen}
+            options={{headerTitle: 'График'}}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
