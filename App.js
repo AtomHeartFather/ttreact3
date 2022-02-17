@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -54,9 +54,9 @@ function App() {
         <Stack.Screen name="Login" component={LoginScreen}
             options={{headerTitle: 'Вход в личный кабинет'}}/>
         <Stack.Screen name="List" component={ListScreen}
-            options={{headerTitle: 'Список', headerLeft: null}}/>
+            options={{headerTitle: 'Список', headerLeft: null, headerRight: () => (<Text>User name</Text>)}}/>
         <Stack.Screen name="Element" component={ElementScreen}
-            options={{headerTitle: 'График'}}/>
+            options={{headerTitle: 'График', headerRight: () => (<Text>User name</Text>)}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
